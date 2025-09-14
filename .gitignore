@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# Virtual environments
+.venv/
+venv/
+myenv/     # 👈 add this, since your venv folder is called "myenv"
+
+# VSCode / PyCharm
+.vscode/
+.idea/
+
+# Docker
+*.log
+*.pid
+*.sock
+*.db
+db_data/
+pgadmin_data/
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.parcel-cache/

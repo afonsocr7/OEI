@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgis/postgis:15-3.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: oei
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app      
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/oei
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    image: node:20
+    working_dir: /app
+    volumes:
+      # Map your local frontend code into the container
+      - ./frontend:/app 
+      # Optional: Map the node_modules cache to a volume
+      - /app/node_modules
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm run dev"    # Parcel dev server (recompila automaticamente)
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: oei-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      GUNICORN_ACCESS_LOGFILE: /dev/null
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+  pgadmin_data:

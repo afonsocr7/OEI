@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Orbital Edge Imaging</title>
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity=""
+      crossorigin=""/>  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">
+      <span class="brand-logo">🛰️</span>
+      <span class="brand-title">Orbital <span class="highlight">Edge Imaging</span></span>
+      <span class="subtitle">Satellite Pass Prediction Platform</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <!-- AOI -->
+      <div class="panel">
+        <h3>Area of Interest (AOI)</h3>
+        <label>Select Existing AOI</label>
+        <select id="aoiSelect"></select>
+        <div class="divider">OR</div>
+        <input type="file" id="aoiUpload" accept=".geojson" hidden />
+        <button id="uploadAoiBtn" class="upload-btn">+ Upload New AOI</button>
+      </div>
+
+      <!-- Satellite -->
+      <div class="panel">
+        <h3>Satellite Selection</h3>
+        <label>Select Satellite TLE</label>
+        <select id="tleSelect"></select>
+        <div class="divider">OR</div>
+        <input type="file" id="tleUpload" accept=".txt" hidden />
+        <button id="uploadTleBtn" class="upload-btn">+ Upload New TLE</button>
+
+        <!-- Controls for passes -->
+        <div class="controls">
+          <label for="minElevation">Min Elevation (°):</label>
+          <input type="number" id="minElevation" value="5" min="0" max="90" step="1">
+
+          <label for="daylightOnly">
+            <input type="checkbox" id="daylightOnly" checked>
+            Daylight Only
+          </label>
+          <label for="duration">
+            <input type="number" id="duration" value="24" min="1" step="1">
+            Duration of calculation of passes (hours)
+          </label>
+            <button id="toggleOrbitPathBtn" class="action-btn">Show Orbital Path</button>
+
+          <button id="computePasses" class="action-btn">Compute Passes</button>
+        </div>
+      </div>
+
+      <!-- Passes -->
+      <div class="panel" id="passesPanel">
+        <h3>📅 Upcoming Passes</h3>
+        <table id="passesTable">
+          <thead>
+            <tr><th>Start Time</th><th>End Time</th><th>Max Elev</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </aside>
+
+    <main class="map-container">
+      <div id="map"></div>
+    </main>
+  </div>
+
+  <script type="module" src="main.ts"></script>
+</body>
+</html>
