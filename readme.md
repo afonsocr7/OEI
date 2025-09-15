@@ -24,21 +24,21 @@ It combines:
 
 ## Project Structure
 
-
+```bash
 ├── backend/app/
-│ ├── main.py # FastAPI entrypoint
-│ ├── models.py # SQLAlchemy ORM models (TLE, AOI)
-│ ├── database.py # Database connection/session
-│ ├── schemas.py # Pydantic schemas for request/response validation
-│ ├── utils.py # Compute passes, orbital path, satellite tracking
-│ └── ...
+│   ├── main.py # FastAPI entrypoint
+│   ├── models.py # SQLAlchemy ORM models (TLE, AOI)
+│   ├── database.py # Database connection/session
+│   ├── schemas.py # Pydantic schemas for request/response validation
+│   ├── utils.py # Compute passes, orbital path, satellite tracking
+│   └── ...
 ├── frontend/
-│ ├── index.html # Main UI
-│ ├── main.ts # Frontend logic (map, API calls)
-│ └── styles.css # Styling
+│   ├── index.html # Main UI
+│   ├── main.ts # Frontend logic (map, API calls)
+│   └── styles.css # Styling
 ├── docker-compose.yml # Multi-service orchestration
 └── README.md # Documentation
-
+```
 
 ---
 
@@ -48,11 +48,13 @@ It combines:
 ```bash
 git clone https://github.com/your-username/orbital-edge-imaging.git
 cd orbital-edge-imaging
-
+```
 
 2. Start services with Docker
 
+```bash
 docker-compose up --build
+```
 
 This will spin up:
 
@@ -88,9 +90,12 @@ To wipe everything (fresh DB + pgAdmin data):
 ```bash
 docker-compose down -v
 docker-compose up --build
-
+```
 Notes
 
 AOIs are stored with SRID=4326 in PostGIS.
 The backend computes passes using Skyfield (satellite propagation).
 You can inspect the database directly in pgAdmin at http://localhost:5050
+
+## AI Usage
+AI assistance was primarily used in the frontend development, particularly in main.ts and the overall UI construction, while the backend work was mostly manual, limited to corrections and bug fixes.
